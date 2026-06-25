@@ -1,0 +1,43 @@
+#Build output
+
+bin/
+obj/
+
+#User secrets
+
+.env
+
+Logs
+
+*.log
+agent_log.txt
+
+#Visual Studio
+
+.vs/
+*.user
+*.suo
+
+#Rider
+
+.idea/
+
+#VS Code
+
+.vscode/
+
+#OS files
+
+.DS_Store
+Thumbs.db
+
+#Training files
+
+TrainingData
+
+bug_reports.json
+expected_results.json
+
+.claude/
+
+.Agent-Context/
