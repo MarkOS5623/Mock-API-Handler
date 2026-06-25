@@ -1,43 +1,82 @@
-#Build output
-
+# =========================
+# Build output
+# =========================
 bin/
 obj/
 
-#User secrets
-
+# =========================
+# User secrets
+# =========================
 .env
+.env.*
+!.env.example
 
-Logs
-
+# =========================
+# Logs
+# =========================
+logs/
 *.log
 agent_log.txt
 
-#Visual Studio
-
+# =========================
+# Visual Studio
+# =========================
 .vs/
 *.user
 *.suo
 
-#Rider
-
+# =========================
+# Rider
+# =========================
 .idea/
 
-#VS Code
-
+# =========================
+# VS Code
+# =========================
 .vscode/
 
-#OS files
+# =========================
+# Claude Code
+# =========================
+.claude/settings.local.json
+.claude/settings.json
+.claude/agents/
+.claude/commands/
+.claude/history/
+.claude/cache/
+.claude/tmp/
 
+# =========================
+# Claude Code Skills
+# =========================
+.claude/skills/.cache/
+.claude/skills/*.log
+.claude/skills/state/
+.claude/skills/tmp/
+
+# =========================
+# Agent Context
+# =========================
+Agent-Context
+
+# =========================
+# OS files
+# =========================
 .DS_Store
 Thumbs.db
 
-#Training files
-
-TrainingData
-
+# =========================
+# Generated data
+# =========================
+TrainingData/
 bug_reports.json
 expected_results.json
 
-.claude/
-
-.Agent-Context/
+# =========================
+# Temporary benchmark output
+# =========================
+BenchmarkResults/
+TestResults/
+coverage/
+*.trx
+*.coverage
