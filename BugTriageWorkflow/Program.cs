@@ -3,7 +3,6 @@ using BugTriageWorkflow.Executors;
 using BugTriageWorkflow.Helpers;
 using BugTriageWorkflow.Models;
 using DotNetEnv;
-using Microsoft.Agents.AI;
 using Microsoft.Extensions.AI;
 using OpenAI;
 using System.ClientModel.Primitives;
@@ -45,15 +44,6 @@ var openAiClient = new OpenAIClient(new System.ClientModel.ApiKeyCredential(apiK
 
 var chatClient = openAiClient.GetChatClient(model).AsIChatClient();
 
-var classifierAgent = chatClient.AsAIAgent(
-    instructions:
-    """
-    You are a bug triage classifier.
-    Follow the user's classification instructions and return only valid JSON.
-    """,
-    name: "BugClassifierAgent"
-);
-
 var cases = BugReportDataStore.LoadOrCreateBugReports();
 var expectedResults = BugReportDataStore.LoadOrCreateExpectedResults();
 
@@ -77,7 +67,7 @@ foreach (var testCase in selectedCases) {
 
         Logger.Section("CLASSIFIER EXECUTOR");
 
-        var classification = await RetryHelper.ExecuteAsync(() => ClassifierExecutor.ExecuteAsync(classifierAgent, preprocessed, promptType), maxAttempts: 3);
+        var classification = await RetryHelper.ExecuteAsync(() => ClassifierExecutor.ExecuteAsync(chatClient, preprocessed, promptType), maxAttempts: 3);
 
         if (classification == null) {
             Logger.Info("Classification failed.");

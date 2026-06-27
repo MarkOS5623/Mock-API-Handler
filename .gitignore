@@ -45,6 +45,7 @@ agent_log.txt
 .claude/history/
 .claude/cache/
 .claude/tmp/
+CLAUDE.md
 
 # =========================
 # Claude Code Skills
