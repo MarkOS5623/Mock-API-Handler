@@ -19,6 +19,14 @@ public static class TriageLabels {
             Infrastructure,
             Unknown
         ];
+
+        // Enum-based access for type safety
+        public static readonly CategoryEnum[] AllEnums = [
+            CategoryEnum.Frontend,
+            CategoryEnum.Backend,
+            CategoryEnum.Infrastructure,
+            CategoryEnum.Unknown
+        ];
     }
 
     public static class Route {
@@ -35,6 +43,14 @@ public static class TriageLabels {
             InfrastructureTeam,
             HumanReview
         ];
+
+        // Enum-based access for type safety
+        public static readonly RouteEnum[] AllEnums = [
+            RouteEnum.FrontendTeam,
+            RouteEnum.BackendTeam,
+            RouteEnum.InfrastructureTeam,
+            RouteEnum.HumanReview
+        ];
     }
 
     public static class Verification {
@@ -49,6 +65,13 @@ public static class TriageLabels {
             Contradicted,
             Inconclusive
         ];
+
+        // Enum-based access for type safety
+        public static readonly VerificationEnum[] AllEnums = [
+            VerificationEnum.Supported,
+            VerificationEnum.Contradicted,
+            VerificationEnum.Inconclusive
+        ];
     }
 
     public static class Level {
@@ -60,6 +83,19 @@ public static class TriageLabels {
             Low,
             Medium,
             High
+        ];
+
+        // Enum-based access for type safety (used for Urgency and FalseReportRisk)
+        public static readonly UrgencyEnum[] AllUrgencyEnums = [
+            UrgencyEnum.Low,
+            UrgencyEnum.Medium,
+            UrgencyEnum.High
+        ];
+
+        public static readonly FalseReportRiskEnum[] AllRiskEnums = [
+            FalseReportRiskEnum.Low,
+            FalseReportRiskEnum.Medium,
+            FalseReportRiskEnum.High
         ];
     }
 

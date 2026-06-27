@@ -25,13 +25,12 @@ public static class RouterExecutor {
     ];
 
     // Human-facing urgency names.
-    // TriageLabels.Level contains lowercase JSON labels: low, medium, high.
     // This list is for manual console selection, so it uses display casing.
     // "Critical" is a manual-only option and is not part of the LLM output labels.
     private static readonly string[] UrgencyOptions = [
-        ToDisplayLabel(TriageLabels.Level.Low),
-        ToDisplayLabel(TriageLabels.Level.Medium),
-        ToDisplayLabel(TriageLabels.Level.High),
+        "Low",
+        "Medium",
+        "High",
         "Critical"
     ];
 
@@ -73,11 +72,11 @@ public static class RouterExecutor {
 
         // Convert the agent's machine-readable route label into the same
         // display format used by the human menu.
-        var recommendedTeam = NormalizeCategoryToTeam(classification.Category);
+        var recommendedTeam = CategoryToTeamDisplay(classification.Category);
 
         // Convert the agent's urgency label into the same display format
         // used by the human urgency menu.
-        var recommendedUrgency = ToDisplayLabel(classification.Urgency);
+        var recommendedUrgency = UrgencyToDisplayLabel(classification.Urgency);
 
         // Human overrides / confirms routing information.
         // The recommended values are shown beside the choices.
@@ -99,7 +98,7 @@ public static class RouterExecutor {
 
         // Convert machine label like "backend_team" into display text like
         // "Backend Team" before storing/logging the route result.
-        var route = NormalizeRoute(classification.RecommendedRoute);
+        var route = RouteToDisplay(classification.RecommendedRoute);
 
         return new RouteResult {
             Route = route,
@@ -138,8 +137,8 @@ public static class RouterExecutor {
         return ReadChoice(prompt: $"Choice [default: {defaultIndex + 1}]: ", options: UrgencyOptions, defaultIndex: defaultIndex);
     }
 
-    private static bool ReadFalseReportChoice(string falseReportRisk) {
-        var recommendedFalseReport = Normalize(falseReportRisk) == TriageLabels.Level.High;
+    private static bool ReadFalseReportChoice(FalseReportRiskEnum falseReportRisk) {
+        var recommendedFalseReport = falseReportRisk == FalseReportRiskEnum.High;
 
         Logger.Info("");
         Logger.Info($"Agent false-report recommendation: {(recommendedFalseReport ? "Yes" : "No")}");
@@ -182,46 +181,37 @@ public static class RouterExecutor {
         }
     }
 
-    private static string NormalizeRoute(string? route) {
-        if (string.IsNullOrWhiteSpace(route)) return UnknownRouteDisplay;
-
-        // Classifier output should be one of TriageLabels.Route.All.
-        // The Trim/ToLower step makes this a bit more tolerant.
-        route = route.Trim().ToLowerInvariant();
-
+    private static string RouteToDisplay(RouteEnum route) {
         return route switch {
-            TriageLabels.Route.FrontendTeam => FrontendTeamDisplay,
-            TriageLabels.Route.BackendTeam => BackendTeamDisplay,
-            TriageLabels.Route.InfrastructureTeam => InfrastructureTeamDisplay,
-            TriageLabels.Route.HumanReview => HumanReviewDisplay,
+            RouteEnum.FrontendTeam => FrontendTeamDisplay,
+            RouteEnum.BackendTeam => BackendTeamDisplay,
+            RouteEnum.InfrastructureTeam => InfrastructureTeamDisplay,
+            RouteEnum.HumanReview => HumanReviewDisplay,
             _ => UnknownRouteDisplay
         };
     }
 
-    private static string NormalizeCategoryToTeam(string? category) {
-        if (string.IsNullOrWhiteSpace(category))
-            return UnknownTeamDisplay;
-
-        category = category.Trim().ToLowerInvariant();
-
+    private static string CategoryToTeamDisplay(CategoryEnum category) {
         return category switch {
-            TriageLabels.Category.Frontend => FrontendTeamDisplay,
-            TriageLabels.Category.Backend => BackendTeamDisplay,
-            TriageLabels.Category.Infrastructure => InfrastructureTeamDisplay,
-            TriageLabels.Category.Unknown => UnknownTeamDisplay,
+            CategoryEnum.Frontend => FrontendTeamDisplay,
+            CategoryEnum.Backend => BackendTeamDisplay,
+            CategoryEnum.Infrastructure => InfrastructureTeamDisplay,
+            CategoryEnum.Unknown => UnknownTeamDisplay,
             _ => UnknownTeamDisplay
         };
     }
-    
+
+    private static string UrgencyToDisplayLabel(UrgencyEnum urgency) {
+        return urgency switch {
+            UrgencyEnum.Low => "Low",
+            UrgencyEnum.Medium => "Medium",
+            UrgencyEnum.High => "High",
+            _ => ""
+        };
+    }
+
     private static int GetOptionIndexOrDefault(string[] options, string value, int defaultIndex) {
         var index = Array.FindIndex( options, option => string.Equals(option, value, StringComparison.OrdinalIgnoreCase));
         return index >= 0 ? index : defaultIndex;
     }
-
-    private static string ToDisplayLabel(string label) {
-        if (string.IsNullOrWhiteSpace(label)) return "";
-        return char.ToUpperInvariant(label[0]) + label[1..].ToLowerInvariant();
-    }
-
-    private static string Normalize(string value) { return value.Trim().ToLowerInvariant(); }
 }

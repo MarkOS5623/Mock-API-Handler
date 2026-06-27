@@ -12,17 +12,17 @@ public static class EvaluationExecutor {
         // These scores use the classifier's numeric confidence values.
         //
 
-        var categoryConfidenceScore = VectorScore(TriageLabels.IndexOf(expected.Category, TriageLabels.Category.All), actual.CategoryVector);
+        var categoryConfidenceScore = VectorScore(Array.IndexOf(TriageLabels.Category.AllEnums, expected.Category), actual.CategoryVector);
 
-        var urgencyConfidenceScore = DistanceScore(LabelToValue(expected.Urgency), actual.UrgencyValue);
+        var urgencyConfidenceScore = DistanceScore(UrgencyToValue(expected.Urgency), actual.UrgencyValue);
 
-        var routeConfidenceScore = VectorScore(TriageLabels.IndexOf(expected.RecommendedRoute, TriageLabels.Route.All), actual.RecommendedRouteVector);
+        var routeConfidenceScore = VectorScore(Array.IndexOf(TriageLabels.Route.AllEnums, expected.RecommendedRoute), actual.RecommendedRouteVector);
 
         var escalationConfidenceScore = DistanceScore(BoolToValue(expected.EscalateToHuman), actual.EscalateToHumanValue);
 
-        var verificationConfidenceScore = VectorScore(TriageLabels.IndexOf(expected.VerificationStatus, TriageLabels.Verification.All), actual.VerificationStatusVector);
+        var verificationConfidenceScore = VectorScore(Array.IndexOf(TriageLabels.Verification.AllEnums, expected.VerificationStatus), actual.VerificationStatusVector);
 
-        var falseReportRiskConfidenceScore = DistanceScore(LabelToValue(expected.FalseReportRisk), actual.FalseReportRiskValue);
+        var falseReportRiskConfidenceScore = DistanceScore(RiskToValue(expected.FalseReportRisk), actual.FalseReportRiskValue);
 
         var confidenceScore =
             (categoryConfidenceScore
@@ -39,12 +39,12 @@ public static class EvaluationExecutor {
         // These check whether the classifier selected the exact expected value.
         //
 
-        var categoryCorrect = SameLabel(expected.Category, actual.Category);
-        var urgencyCorrect = SameLabel(expected.Urgency, actual.Urgency);
-        var routeCorrect = SameLabel(expected.RecommendedRoute, actual.RecommendedRoute);
+        var categoryCorrect = expected.Category == actual.Category;
+        var urgencyCorrect = expected.Urgency == actual.Urgency;
+        var routeCorrect = expected.RecommendedRoute == actual.RecommendedRoute;
         var escalationCorrect = expected.EscalateToHuman == actual.EscalateToHuman;
-        var verificationCorrect = SameLabel(expected.VerificationStatus, actual.VerificationStatus);
-        var falseReportRiskCorrect = SameLabel(expected.FalseReportRisk, actual.FalseReportRisk);
+        var verificationCorrect = expected.VerificationStatus == actual.VerificationStatus;
+        var falseReportRiskCorrect = expected.FalseReportRisk == actual.FalseReportRisk;
 
         var totalCorrectPredictions =
             BoolScore(categoryCorrect)
@@ -101,11 +101,20 @@ public static class EvaluationExecutor {
 
     private static double DistanceScore(double expected, double actual) { return Clamp(1.0 - Math.Abs(expected - actual)); }
 
-    private static double LabelToValue(string value) {
-        return value.Trim().ToLowerInvariant() switch {
-            TriageLabels.Level.Low => 0.0,
-            TriageLabels.Level.Medium => 0.5,
-            TriageLabels.Level.High => 1.0,
+    private static double UrgencyToValue(UrgencyEnum value) {
+        return value switch {
+            UrgencyEnum.Low => 0.0,
+            UrgencyEnum.Medium => 0.5,
+            UrgencyEnum.High => 1.0,
+            _ => 0.0
+        };
+    }
+
+    private static double RiskToValue(FalseReportRiskEnum value) {
+        return value switch {
+            FalseReportRiskEnum.Low => 0.0,
+            FalseReportRiskEnum.Medium => 0.5,
+            FalseReportRiskEnum.High => 1.0,
             _ => 0.0
         };
     }
@@ -113,13 +122,6 @@ public static class EvaluationExecutor {
     private static double BoolToValue(bool value) { return value ? 1.0 : 0.0;}
 
     private static int BoolScore(bool value) { return value ? 1 : 0; }
-
-    private static bool SameLabel(string expected, string actual) {
-        return string.Equals(
-            expected.Trim(),
-            actual.Trim(),
-            StringComparison.OrdinalIgnoreCase);
-    }
 
     private static double Clamp(double value) { return Math.Max(0.0, Math.Min(1.0, value)); }
 }

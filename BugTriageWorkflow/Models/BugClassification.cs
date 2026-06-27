@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using BugTriageWorkflow.Constants;
 
 namespace BugTriageWorkflow.Models;
 
@@ -12,7 +13,7 @@ public class BugClassification {
     /// Examples: frontend, backend, infrastructure, unknown.
     /// </summary>
     [JsonPropertyName("category")]
-    public string Category { get; set; } = "";
+    public CategoryEnum Category { get; set; }
 
     /// <summary>
     /// Probability distribution for the category classification.
@@ -28,7 +29,7 @@ public class BugClassification {
     /// Examples: low, medium, high.
     /// </summary>
     [JsonPropertyName("urgency")]
-    public string Urgency { get; set; } = "";
+    public UrgencyEnum Urgency { get; set; }
 
     /// <summary>
     /// Numeric urgency value used for evaluation.
@@ -53,7 +54,7 @@ public class BugClassification {
     /// infrastructure_team, human_review.
     /// </summary>
     [JsonPropertyName("recommended_route")]
-    public string RecommendedRoute { get; set; } = "";
+    public RouteEnum RecommendedRoute { get; set; }
 
     /// <summary>
     /// Probability distribution for the routing decision.
@@ -85,7 +86,7 @@ public class BugClassification {
     /// contradicts, or is inconclusive regarding the report.
     /// </summary>
     [JsonPropertyName("verification_status")]
-    public string VerificationStatus { get; set; } = "";
+    public VerificationEnum VerificationStatus { get; set; }
 
     /// <summary>
     /// Probability distribution for the verification decision.
@@ -102,7 +103,7 @@ public class BugClassification {
     /// Examples: low, medium, high.
     /// </summary>
     [JsonPropertyName("false_report_risk")]
-    public string FalseReportRisk { get; set; } = "";
+    public FalseReportRiskEnum FalseReportRisk { get; set; }
 
     /// <summary>
     /// Numeric representation of the false report risk.

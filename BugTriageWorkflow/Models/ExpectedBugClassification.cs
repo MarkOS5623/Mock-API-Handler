@@ -1,3 +1,5 @@
+using BugTriageWorkflow.Constants;
+
 namespace BugTriageWorkflow.Models;
 
 /// <summary>
@@ -10,20 +12,20 @@ public class ExpectedBugClassification {
     /// Expected bug category.
     /// Examples: frontend, backend, infrastructure, unknown.
     /// </summary>
-    public string Category { get; set; } = "";
+    public CategoryEnum Category { get; set; }
 
     /// <summary>
     /// Expected urgency level.
     /// Examples: low, medium, high.
     /// </summary>
-    public string Urgency { get; set; } = "";
+    public UrgencyEnum Urgency { get; set; }
 
     /// <summary>
     /// Expected routing destination.
     /// Examples: frontend_team, backend_team,
     /// infrastructure_team, human_review.
     /// </summary>
-    public string RecommendedRoute { get; set; } = "";
+    public RouteEnum RecommendedRoute { get; set; }
 
     /// <summary>
     /// Indicates whether the report is expected to require
@@ -38,12 +40,12 @@ public class ExpectedBugClassification {
     /// contradicted_by_evidence,
     /// inconclusive.
     /// </summary>
-    public string VerificationStatus { get; set; } = "";
+    public VerificationEnum VerificationStatus { get; set; }
 
     /// <summary>
     /// Expected likelihood that the report is inaccurate
     /// or unsupported by the available evidence.
     /// Examples: low, medium, high.
     /// </summary>
-    public string FalseReportRisk { get; set; } = "";
+    public FalseReportRiskEnum FalseReportRisk { get; set; }
 }

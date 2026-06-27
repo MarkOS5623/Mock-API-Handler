@@ -11,48 +11,48 @@ public static class ExpectedBugResults {
             // -------------------------
 
             ["BUG-001"] = new() {
-                Category = TriageLabels.Category.Backend,
-                Urgency = TriageLabels.Level.Medium,
-                RecommendedRoute = TriageLabels.Route.BackendTeam,
+                Category = CategoryEnum.Backend,
+                Urgency = UrgencyEnum.Medium,
+                RecommendedRoute = RouteEnum.BackendTeam,
                 EscalateToHuman = false,
-                VerificationStatus = TriageLabels.Verification.Supported,
-                FalseReportRisk = TriageLabels.Level.Low
+                VerificationStatus = VerificationEnum.Supported,
+                FalseReportRisk = FalseReportRiskEnum.Low
             },
 
             ["BUG-002"] = new() {
-                Category = TriageLabels.Category.Frontend,
-                Urgency = TriageLabels.Level.Medium,
-                RecommendedRoute = TriageLabels.Route.FrontendTeam,
+                Category = CategoryEnum.Frontend,
+                Urgency = UrgencyEnum.Medium,
+                RecommendedRoute = RouteEnum.FrontendTeam,
                 EscalateToHuman = false,
-                VerificationStatus = TriageLabels.Verification.Supported,
-                FalseReportRisk = TriageLabels.Level.Low
+                VerificationStatus = VerificationEnum.Supported,
+                FalseReportRisk = FalseReportRiskEnum.Low
             },
 
             ["BUG-003"] = new() {
-                Category = TriageLabels.Category.Backend,
-                Urgency = TriageLabels.Level.Medium,
-                RecommendedRoute = TriageLabels.Route.BackendTeam,
+                Category = CategoryEnum.Backend,
+                Urgency = UrgencyEnum.Medium,
+                RecommendedRoute = RouteEnum.BackendTeam,
                 EscalateToHuman = false,
-                VerificationStatus = TriageLabels.Verification.Supported,
-                FalseReportRisk = TriageLabels.Level.Low
+                VerificationStatus = VerificationEnum.Supported,
+                FalseReportRisk = FalseReportRiskEnum.Low
             },
 
             ["BUG-004"] = new() {
-                Category = TriageLabels.Category.Backend,
-                Urgency = TriageLabels.Level.Medium,
-                RecommendedRoute = TriageLabels.Route.BackendTeam,
+                Category = CategoryEnum.Backend,
+                Urgency = UrgencyEnum.Medium,
+                RecommendedRoute = RouteEnum.BackendTeam,
                 EscalateToHuman = false,
-                VerificationStatus = TriageLabels.Verification.Supported,
-                FalseReportRisk = TriageLabels.Level.Low
+                VerificationStatus = VerificationEnum.Supported,
+                FalseReportRisk = FalseReportRiskEnum.Low
             },
 
             ["BUG-005"] = new() {
-                Category = TriageLabels.Category.Infrastructure,
-                Urgency = TriageLabels.Level.Medium,
-                RecommendedRoute = TriageLabels.Route.InfrastructureTeam,
+                Category = CategoryEnum.Infrastructure,
+                Urgency = UrgencyEnum.Medium,
+                RecommendedRoute = RouteEnum.InfrastructureTeam,
                 EscalateToHuman = false,
-                VerificationStatus = TriageLabels.Verification.Supported,
-                FalseReportRisk = TriageLabels.Level.Low
+                VerificationStatus = VerificationEnum.Supported,
+                FalseReportRisk = FalseReportRiskEnum.Low
             },
 
             // -------------------------
@@ -61,48 +61,48 @@ public static class ExpectedBugResults {
             // -------------------------
 
             ["BUG-006"] = new() {
-                Category = TriageLabels.Category.Frontend,
-                Urgency = TriageLabels.Level.High,
-                RecommendedRoute = TriageLabels.Route.HumanReview,
+                Category = CategoryEnum.Frontend,
+                Urgency = UrgencyEnum.High,
+                RecommendedRoute = RouteEnum.HumanReview,
                 EscalateToHuman = true,
-                VerificationStatus = TriageLabels.Verification.Contradicted,
-                FalseReportRisk = TriageLabels.Level.High
+                VerificationStatus = VerificationEnum.Contradicted,
+                FalseReportRisk = FalseReportRiskEnum.High
             },
 
             ["BUG-007"] = new() {
-                Category = TriageLabels.Category.Frontend,
-                Urgency = TriageLabels.Level.Medium,
-                RecommendedRoute = TriageLabels.Route.HumanReview,
+                Category = CategoryEnum.Frontend,
+                Urgency = UrgencyEnum.Medium,
+                RecommendedRoute = RouteEnum.HumanReview,
                 EscalateToHuman = true,
-                VerificationStatus = TriageLabels.Verification.Contradicted,
-                FalseReportRisk = TriageLabels.Level.High
+                VerificationStatus = VerificationEnum.Contradicted,
+                FalseReportRisk = FalseReportRiskEnum.High
             },
 
             ["BUG-008"] = new() {
-                Category = TriageLabels.Category.Frontend,
-                Urgency = TriageLabels.Level.Medium,
-                RecommendedRoute = TriageLabels.Route.HumanReview,
+                Category = CategoryEnum.Frontend,
+                Urgency = UrgencyEnum.Medium,
+                RecommendedRoute = RouteEnum.HumanReview,
                 EscalateToHuman = true,
-                VerificationStatus = TriageLabels.Verification.Contradicted,
-                FalseReportRisk = TriageLabels.Level.High
+                VerificationStatus = VerificationEnum.Contradicted,
+                FalseReportRisk = FalseReportRiskEnum.High
             },
 
             ["BUG-009"] = new() {
-                Category = TriageLabels.Category.Infrastructure,
-                Urgency = TriageLabels.Level.Medium,
-                RecommendedRoute = TriageLabels.Route.HumanReview,
+                Category = CategoryEnum.Infrastructure,
+                Urgency = UrgencyEnum.Medium,
+                RecommendedRoute = RouteEnum.HumanReview,
                 EscalateToHuman = true,
-                VerificationStatus = TriageLabels.Verification.Contradicted,
-                FalseReportRisk = TriageLabels.Level.High
+                VerificationStatus = VerificationEnum.Contradicted,
+                FalseReportRisk = FalseReportRiskEnum.High
             },
 
             ["BUG-010"] = new() {
-                Category = TriageLabels.Category.Frontend,
-                Urgency = TriageLabels.Level.Medium,
-                RecommendedRoute = TriageLabels.Route.HumanReview,
+                Category = CategoryEnum.Frontend,
+                Urgency = UrgencyEnum.Medium,
+                RecommendedRoute = RouteEnum.HumanReview,
                 EscalateToHuman = true,
-                VerificationStatus = TriageLabels.Verification.Contradicted,
-                FalseReportRisk = TriageLabels.Level.High
+                VerificationStatus = VerificationEnum.Contradicted,
+                FalseReportRisk = FalseReportRiskEnum.High
             },
 
             // -------------------------
@@ -111,48 +111,48 @@ public static class ExpectedBugResults {
             // -------------------------
 
             ["BUG-011"] = new() {
-                Category = TriageLabels.Category.Frontend,
-                Urgency = TriageLabels.Level.Low,
-                RecommendedRoute = TriageLabels.Route.FrontendTeam,
+                Category = CategoryEnum.Frontend,
+                Urgency = UrgencyEnum.Low,
+                RecommendedRoute = RouteEnum.FrontendTeam,
                 EscalateToHuman = false,
-                VerificationStatus = TriageLabels.Verification.Inconclusive,
-                FalseReportRisk = TriageLabels.Level.Medium
+                VerificationStatus = VerificationEnum.Inconclusive,
+                FalseReportRisk = FalseReportRiskEnum.Medium
             },
 
             ["BUG-012"] = new() {
-                Category = TriageLabels.Category.Frontend,
-                Urgency = TriageLabels.Level.Low,
-                RecommendedRoute = TriageLabels.Route.FrontendTeam,
+                Category = CategoryEnum.Frontend,
+                Urgency = UrgencyEnum.Low,
+                RecommendedRoute = RouteEnum.FrontendTeam,
                 EscalateToHuman = false,
-                VerificationStatus = TriageLabels.Verification.Inconclusive,
-                FalseReportRisk = TriageLabels.Level.Medium
+                VerificationStatus = VerificationEnum.Inconclusive,
+                FalseReportRisk = FalseReportRiskEnum.Medium
             },
 
             ["BUG-013"] = new() {
-                Category = TriageLabels.Category.Frontend,
-                Urgency = TriageLabels.Level.Low,
-                RecommendedRoute = TriageLabels.Route.FrontendTeam,
+                Category = CategoryEnum.Frontend,
+                Urgency = UrgencyEnum.Low,
+                RecommendedRoute = RouteEnum.FrontendTeam,
                 EscalateToHuman = false,
-                VerificationStatus = TriageLabels.Verification.Supported,
-                FalseReportRisk = TriageLabels.Level.Low
+                VerificationStatus = VerificationEnum.Supported,
+                FalseReportRisk = FalseReportRiskEnum.Low
             },
 
             ["BUG-014"] = new() {
-                Category = TriageLabels.Category.Infrastructure,
-                Urgency = TriageLabels.Level.Low,
-                RecommendedRoute = TriageLabels.Route.InfrastructureTeam,
+                Category = CategoryEnum.Infrastructure,
+                Urgency = UrgencyEnum.Low,
+                RecommendedRoute = RouteEnum.InfrastructureTeam,
                 EscalateToHuman = false,
-                VerificationStatus = TriageLabels.Verification.Inconclusive,
-                FalseReportRisk = TriageLabels.Level.Medium
+                VerificationStatus = VerificationEnum.Inconclusive,
+                FalseReportRisk = FalseReportRiskEnum.Medium
             },
 
             ["BUG-015"] = new() {
-                Category = TriageLabels.Category.Backend,
-                Urgency = TriageLabels.Level.Low,
-                RecommendedRoute = TriageLabels.Route.BackendTeam,
+                Category = CategoryEnum.Backend,
+                Urgency = UrgencyEnum.Low,
+                RecommendedRoute = RouteEnum.BackendTeam,
                 EscalateToHuman = false,
-                VerificationStatus = TriageLabels.Verification.Inconclusive,
-                FalseReportRisk = TriageLabels.Level.Medium
+                VerificationStatus = VerificationEnum.Inconclusive,
+                FalseReportRisk = FalseReportRiskEnum.Medium
             }
         };
     }

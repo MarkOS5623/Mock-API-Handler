@@ -1,3 +1,4 @@
+using System.Runtime.Serialization;
 using BugTriageWorkflow.Constants;
 using BugTriageWorkflow.Models;
 
@@ -16,9 +17,7 @@ public static class ClassificationValidator {
         // Category validation
         // -------------------------
 
-        if (string.IsNullOrWhiteSpace(classification.Category)) return Fail("Category is missing.", out error);
-
-        var categoryIndex = TriageLabels.IndexOf(classification.Category, TriageLabels.Category.All);
+        var categoryIndex = Array.IndexOf(TriageLabels.Category.AllEnums, classification.Category);
 
         if (categoryIndex == -1) return Fail($"Unknown category: {classification.Category}", out error);
 
@@ -29,16 +28,15 @@ public static class ClassificationValidator {
         // Urgency validation
         // -------------------------
 
-        if (string.IsNullOrWhiteSpace(classification.Urgency)) return Fail("Urgency is missing.", out error);
-
-        if (TriageLabels.IndexOf(classification.Urgency, TriageLabels.Level.All) == -1) return Fail($"Unknown urgency: {classification.Urgency}", out error);
+        if (Array.IndexOf(TriageLabels.Level.AllUrgencyEnums, classification.Urgency) == -1)
+            return Fail($"Unknown urgency: {classification.Urgency}", out error);
 
         if (!IsProbability(classification.UrgencyValue, "Urgency value", out error)) return false;
 
         // Makes sure the label and value agree.
         // Example invalid:
         // urgency = "high", urgency_value = 0.10
-        if (!IsValidLevelValue(classification.Urgency, classification.UrgencyValue, "Urgency", out error)) return false;
+        if (!IsValidUrgencyValue(classification.Urgency, classification.UrgencyValue, "Urgency", out error)) return false;
 
         // -------------------------
         // Missing info validation
@@ -50,9 +48,7 @@ public static class ClassificationValidator {
         // Route validation
         // -------------------------
 
-        if (string.IsNullOrWhiteSpace(classification.RecommendedRoute)) return Fail("Recommended route is missing.", out error);
-
-        var routeIndex = TriageLabels.IndexOf(classification.RecommendedRoute, TriageLabels.Route.All);
+        var routeIndex = Array.IndexOf(TriageLabels.Route.AllEnums, classification.RecommendedRoute);
 
         if (routeIndex == -1) return Fail($"Unknown route: {classification.RecommendedRoute}", out error);
 
@@ -76,9 +72,7 @@ public static class ClassificationValidator {
         // Verification validation
         // -------------------------
 
-        if (string.IsNullOrWhiteSpace(classification.VerificationStatus)) return Fail("Verification status is missing.", out error);
-
-        var verificationIndex = TriageLabels.IndexOf(classification.VerificationStatus, TriageLabels.Verification.All);
+        var verificationIndex = Array.IndexOf(TriageLabels.Verification.AllEnums, classification.VerificationStatus);
 
         if (verificationIndex == -1)
             return Fail($"Unknown verification status: {classification.VerificationStatus}", out error);
@@ -90,9 +84,7 @@ public static class ClassificationValidator {
         // False report risk validation
         // -------------------------
 
-        if (string.IsNullOrWhiteSpace(classification.FalseReportRisk)) return Fail("False report risk is missing.", out error);
-
-        if (TriageLabels.IndexOf(classification.FalseReportRisk, TriageLabels.Level.All) == -1)
+        if (Array.IndexOf(TriageLabels.Level.AllRiskEnums, classification.FalseReportRisk) == -1)
             return Fail($"Unknown false report risk: {classification.FalseReportRisk}", out error);
 
         if (!IsProbability(classification.FalseReportRiskValue, "False report risk value", out error)) return false;
@@ -100,7 +92,7 @@ public static class ClassificationValidator {
         // Makes sure the label and value agree.
         // Example invalid:
         // false_report_risk = "low", false_report_risk_value = 0.90
-        if (!IsValidLevelValue(classification.FalseReportRisk, classification.FalseReportRiskValue, "False report risk", out error))
+        if (!IsValidRiskValue(classification.FalseReportRisk, classification.FalseReportRiskValue, "False report risk", out error))
             return false;
 
         // -------------------------
@@ -145,34 +137,59 @@ public static class ClassificationValidator {
         };
     }
 
-    private static bool IsValidLevelValue(string label, double value, string fieldName, out string error) {
+    private static bool IsValidUrgencyValue(UrgencyEnum urgency, double value, string fieldName, out string error) {
+        return urgency switch {
+            UrgencyEnum.Low when value is >= TriageRanges.LowMin and <= TriageRanges.LowMax => Success(out error),
 
-        var normalized = Normalize(label);
+            UrgencyEnum.Medium when value is >= TriageRanges.MediumMin and <= TriageRanges.MediumMax => Success(out error),
 
-        return normalized switch {
-            TriageLabels.Level.Low when value is >= TriageRanges.LowMin and <= TriageRanges.LowMax => Success(out error),
+            UrgencyEnum.High when value is >= TriageRanges.HighMin and <= TriageRanges.HighMax => Success(out error),
 
-            TriageLabels.Level.Medium when value is >= TriageRanges.MediumMin and <= TriageRanges.MediumMax => Success(out error),
-
-            TriageLabels.Level.High when value is >= TriageRanges.HighMin and <= TriageRanges.HighMax => Success(out error),
-
-            TriageLabels.Level.Low =>
+            UrgencyEnum.Low =>
                 Fail(
                     $"{fieldName} value {value:0.00} does not match label '{TriageLabels.Level.Low}'. Expected range: {TriageRanges.Format(TriageRanges.LowMin, TriageRanges.LowMax)}.",
                     out error),
 
-            TriageLabels.Level.Medium =>
+            UrgencyEnum.Medium =>
                 Fail(
                     $"{fieldName} value {value:0.00} does not match label '{TriageLabels.Level.Medium}'. Expected range: {TriageRanges.Format(TriageRanges.MediumMin, TriageRanges.MediumMax)}.",
                     out error),
 
-            TriageLabels.Level.High =>
+            UrgencyEnum.High =>
                 Fail(
                     $"{fieldName} value {value:0.00} does not match label '{TriageLabels.Level.High}'. Expected range: {TriageRanges.Format(TriageRanges.HighMin, TriageRanges.HighMax)}.",
                     out error),
 
             _ =>
-                Fail($"Unknown {fieldName.ToLowerInvariant()} label: {label}", out error)
+                Fail($"Unknown {fieldName.ToLowerInvariant()} label: {urgency}", out error)
+        };
+    }
+
+    private static bool IsValidRiskValue(FalseReportRiskEnum risk, double value, string fieldName, out string error) {
+        return risk switch {
+            FalseReportRiskEnum.Low when value is >= TriageRanges.LowMin and <= TriageRanges.LowMax => Success(out error),
+
+            FalseReportRiskEnum.Medium when value is >= TriageRanges.MediumMin and <= TriageRanges.MediumMax => Success(out error),
+
+            FalseReportRiskEnum.High when value is >= TriageRanges.HighMin and <= TriageRanges.HighMax => Success(out error),
+
+            FalseReportRiskEnum.Low =>
+                Fail(
+                    $"{fieldName} value {value:0.00} does not match label '{TriageLabels.Level.Low}'. Expected range: {TriageRanges.Format(TriageRanges.LowMin, TriageRanges.LowMax)}.",
+                    out error),
+
+            FalseReportRiskEnum.Medium =>
+                Fail(
+                    $"{fieldName} value {value:0.00} does not match label '{TriageLabels.Level.Medium}'. Expected range: {TriageRanges.Format(TriageRanges.MediumMin, TriageRanges.MediumMax)}.",
+                    out error),
+
+            FalseReportRiskEnum.High =>
+                Fail(
+                    $"{fieldName} value {value:0.00} does not match label '{TriageLabels.Level.High}'. Expected range: {TriageRanges.Format(TriageRanges.HighMin, TriageRanges.HighMax)}.",
+                    out error),
+
+            _ =>
+                Fail($"Unknown {fieldName.ToLowerInvariant()} label: {risk}", out error)
         };
     }
 
@@ -191,48 +208,41 @@ public static class ClassificationValidator {
 
     private static bool IsValidCrossFieldConsistency(BugClassification classification, out string error) {
 
-        var category = Normalize(classification.Category);
-        var route = Normalize(classification.RecommendedRoute);
-        var verification = Normalize(classification.VerificationStatus);
-        var falseReportRisk = Normalize(classification.FalseReportRisk);
-
         // Contradicted evidence should always go to human review.
-        if (verification == TriageLabels.Verification.Contradicted) {
+        if (classification.VerificationStatus == VerificationEnum.Contradicted) {
             if (!classification.EscalateToHuman) return Fail("Contradicted evidence must set escalate_to_human = true.", out error);
 
-            if (route != TriageLabels.Route.HumanReview) return Fail("Contradicted evidence must route to human_review.", out error);
+            if (classification.RecommendedRoute != RouteEnum.HumanReview) return Fail("Contradicted evidence must route to human_review.", out error);
 
-            if (falseReportRisk != TriageLabels.Level.High)  return Fail("Contradicted evidence must use false_report_risk = high.", out error);
+            if (classification.FalseReportRisk != FalseReportRiskEnum.High)  return Fail("Contradicted evidence must use false_report_risk = high.", out error);
         }
 
         // High false-report risk should always go to human review.
-        if (falseReportRisk == TriageLabels.Level.High) {
+        if (classification.FalseReportRisk == FalseReportRiskEnum.High) {
             if (!classification.EscalateToHuman) return Fail("High false report risk must set escalate_to_human = true.", out error);
 
-            if (route != TriageLabels.Route.HumanReview) return Fail("High false report risk must route to human_review.", out error);
+            if (classification.RecommendedRoute != RouteEnum.HumanReview) return Fail("High false report risk must route to human_review.", out error);
         }
 
         // Unknown category should not be assigned directly to a product team.
-        if (category == TriageLabels.Category.Unknown) {
+        if (classification.Category == CategoryEnum.Unknown) {
             if (!classification.EscalateToHuman) return Fail("Unknown category must set escalate_to_human = true.", out error);
 
-            if (route != TriageLabels.Route.HumanReview) return Fail("Unknown category must route to human_review.", out error);
+            if (classification.RecommendedRoute != RouteEnum.HumanReview) return Fail("Unknown category must route to human_review.", out error);
         }
 
         // Supported evidence and high false-report risk contradict each other.
-        if (verification == TriageLabels.Verification.Supported && falseReportRisk == TriageLabels.Level.High) {
+        if (classification.VerificationStatus == VerificationEnum.Supported && classification.FalseReportRisk == FalseReportRiskEnum.High) {
             return Fail("Supported evidence cannot have false_report_risk = high.", out error);
         }
 
         // Contradicted evidence and low false-report risk contradict each other.
-        if (verification == TriageLabels.Verification.Contradicted && falseReportRisk == TriageLabels.Level.Low) {
+        if (classification.VerificationStatus == VerificationEnum.Contradicted && classification.FalseReportRisk == FalseReportRiskEnum.Low) {
             return Fail("Contradicted evidence cannot have false_report_risk = low.", out error);
         }
 
         return Success(out error);
     }
-
-    private static string Normalize(string value) { return value.Trim().ToLowerInvariant();}
 
     private static bool Success(out string error) {
         error = "";
