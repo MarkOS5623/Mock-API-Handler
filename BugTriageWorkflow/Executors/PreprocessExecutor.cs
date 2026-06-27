@@ -29,6 +29,26 @@ public static class PreprocessExecutor {
     };
 
     public static PreprocessedBugReport Execute(BugReport report, int keywordCount) {
+        if (report == null) {
+            throw new ArgumentNullException(nameof(report), "Bug report cannot be null.");
+        }
+
+        if (string.IsNullOrWhiteSpace(report.Id)) {
+            throw new ArgumentException("Bug report Id is required and cannot be empty.", nameof(report));
+        }
+
+        if (string.IsNullOrWhiteSpace(report.Reporter)) {
+            throw new ArgumentException($"Bug report {report.Id} is missing Reporter field.", nameof(report));
+        }
+
+        if (string.IsNullOrWhiteSpace(report.RawText)) {
+            throw new ArgumentException($"Bug report {report.Id} is missing RawText field.", nameof(report));
+        }
+
+        if (keywordCount < 0) {
+            throw new ArgumentOutOfRangeException(nameof(keywordCount), "Keyword count must be non-negative.");
+        }
+
         var cleanText = NormalizeText(report.RawText);
         var evidence = NormalizeText(report.Evidence ?? "");
 

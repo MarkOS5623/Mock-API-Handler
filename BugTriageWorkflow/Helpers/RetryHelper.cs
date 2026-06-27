@@ -59,11 +59,20 @@ public static class RetryHelper {
 
                 Logger.Info($"Attempt {attempt}/{maxAttempts} returned no result.");
             } catch (Exception ex) {
+                var errorCategory = ErrorClassifier.Classify(ex);
+                var categoryDescription = ErrorClassifier.GetCategoryDescription(errorCategory);
+
                 Logger.Info($"Attempt {attempt}/{maxAttempts} failed: {ex.GetType().Name}: {ex.Message}");
+                Logger.Info($"Error Category: {categoryDescription}");
 
                 if (!shouldRetry(ex)) {
                     Logger.Info("Failure is not retryable. Stopping retries.");
+                    Logger.Info($"Guidance: {ErrorClassifier.GetRecoveryGuidance(errorCategory)}");
                     return default;
+                }
+
+                if (attempt == maxAttempts) {
+                    Logger.Info($"Guidance: {ErrorClassifier.GetRecoveryGuidance(errorCategory)}");
                 }
             }
 

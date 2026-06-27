@@ -12,14 +12,48 @@ Env.Load(ProjectPaths.EnvFile);
 var apiKey = Environment.GetEnvironmentVariable("OPENROUTER_API_KEY");
 
 if (string.IsNullOrWhiteSpace(apiKey)) {
-    Logger.Info("OPENROUTER_API_KEY is missing.");
+    Console.WriteLine();
+    Console.WriteLine("═══════════════════════════════════════════════════════════");
+    Console.WriteLine("  CONFIGURATION ERROR: Missing API Key");
+    Console.WriteLine("═══════════════════════════════════════════════════════════");
+    Console.WriteLine();
+    Console.WriteLine("The OPENROUTER_API_KEY environment variable is required but not set.");
+    Console.WriteLine();
+    Console.WriteLine("To fix this issue:");
+    Console.WriteLine("  1. Create or edit the .env file in the project root");
+    Console.WriteLine("  2. Add the following line:");
+    Console.WriteLine("     OPENROUTER_API_KEY=your_api_key_here");
+    Console.WriteLine("  3. Save the file and run the application again");
+    Console.WriteLine();
+    Console.WriteLine("For more information, visit: https://openrouter.ai/keys");
+    Console.WriteLine("═══════════════════════════════════════════════════════════");
+    Console.WriteLine();
     return;
 }
 
 var model = Environment.GetEnvironmentVariable("MODEL");
 
 if (string.IsNullOrWhiteSpace(model)) {
-    Logger.Info("MODEL is missing.");
+    Console.WriteLine();
+    Console.WriteLine("═══════════════════════════════════════════════════════════");
+    Console.WriteLine("  CONFIGURATION ERROR: Missing Model");
+    Console.WriteLine("═══════════════════════════════════════════════════════════");
+    Console.WriteLine();
+    Console.WriteLine("The MODEL environment variable is required but not set.");
+    Console.WriteLine();
+    Console.WriteLine("To fix this issue:");
+    Console.WriteLine("  1. Create or edit the .env file in the project root");
+    Console.WriteLine("  2. Add the following line:");
+    Console.WriteLine("     MODEL=your_model_name");
+    Console.WriteLine("  3. Example models:");
+    Console.WriteLine("     - openai/gpt-4o");
+    Console.WriteLine("     - openai/gpt-oss-120b:free");
+    Console.WriteLine("     - anthropic/claude-3.5-sonnet");
+    Console.WriteLine("  4. Save the file and run the application again");
+    Console.WriteLine();
+    Console.WriteLine("For available models, visit: https://openrouter.ai/models");
+    Console.WriteLine("═══════════════════════════════════════════════════════════");
+    Console.WriteLine();
     return;
 }
 

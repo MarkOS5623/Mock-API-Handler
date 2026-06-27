@@ -57,7 +57,17 @@ public static class ClassifierExecutor {
         } catch (JsonException ex) {
             Logger.Info("Failed to deserialize classification.");
             Logger.Info($"JSON error: {ex.Message}");
+            Logger.Info("Error Category: Validation Error");
             return null;
+        } catch (Exception ex) {
+            var errorCategory = ErrorClassifier.Classify(ex);
+            var categoryDescription = ErrorClassifier.GetCategoryDescription(errorCategory);
+
+            Logger.Info($"Classification failed: {ex.GetType().Name}: {ex.Message}");
+            Logger.Info($"Error Category: {categoryDescription}");
+
+            // Rethrow to allow RetryHelper to handle retries
+            throw;
         }
     }
 }
