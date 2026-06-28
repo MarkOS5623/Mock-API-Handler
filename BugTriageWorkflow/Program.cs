@@ -68,6 +68,8 @@ Logger.Section("RUN CONFIGURATION");
 Logger.RunConfiguration(model, keywordCount, promptType.ToString(), selectedScenario);
 Logger.Info($"Manual Escalation Handling: {handleEscalationsManually}");
 
+JsonLogger.Initialize(model, keywordCount, promptType.ToString(), selectedScenario, handleEscalationsManually);
+
 var openAiOptions = new OpenAIClientOptions { Endpoint = new Uri("https://openrouter.ai/api/v1") };
 
 openAiOptions.AddPolicy(
@@ -88,6 +90,7 @@ var summaryBuilder = new RunSummaryBuilder();
 
 foreach (var testCase in selectedCases) {
     Logger.Case(testCase.Key);
+    JsonLogger.StartTestCase(testCase.Key);
 
     foreach (var report in testCase.Value) {
         Logger.Section("RAW BUG REPORT");
@@ -104,6 +107,7 @@ foreach (var testCase in selectedCases) {
         var classification = await RetryHelper.ExecuteAsync(() => ClassifierExecutor.ExecuteAsync(chatClient, preprocessed, promptType), maxAttempts: 3);
 
         if (classification == null) {
+            JsonLogger.AddFailure(report.Id, "classifier", "classification_failed", "Classification failed after retries.", 3);
             Logger.Info("Classification failed.");
             continue;
         }
@@ -132,6 +136,8 @@ foreach (var testCase in selectedCases) {
         Logger.Evaluation(evaluation);
 
         summaryBuilder.Add(evaluation);
+
+        JsonLogger.AddReport(report, preprocessed, classification, route, expected, evaluation);
     }
 }
 
@@ -140,6 +146,8 @@ var runDuration = DateTime.UtcNow - runStartTime;
 var runSummary = summaryBuilder.Build(model, keywordCount, promptType.ToString(), selectedScenario, handleEscalationsManually, runDuration);
 
 Logger.RunSummary(runSummary);
+
+JsonLogger.Finalize(runSummary, runDuration);
 
 Logger.Section("RUN COMPLETE");
 Logger.Info($"Log saved to: {Logger.CurrentLogFile}");
