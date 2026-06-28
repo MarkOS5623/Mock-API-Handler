@@ -39,19 +39,26 @@ public static class RouterExecutor {
         BugReport report,
         bool handleEscalationsManually) {
 
-        // If the classifier recommends escalation and the app is configured
-        // for manual handling, show the report to a human and collect decisions.
-        if (classification.EscalateToHuman && handleEscalationsManually)  return HandleHumanEscalation(classification, report);
+        // Apply routing policy to determine final route based on business rules
+        var (finalRoute, rationale) = RoutingPolicy.DetermineRoute(classification);
 
-        // Otherwise, trust the classifier's recommended route.
-        return RouteAutomatically(classification);
+        // If the policy determined human review is needed and manual handling is enabled,
+        // show the report to a human and collect decisions.
+        if (finalRoute == RouteEnum.HumanReview && handleEscalationsManually)
+        {
+            return HandleHumanEscalation(classification, report, rationale);
+        }
+
+        // Otherwise, use the policy-determined route automatically.
+        return RouteAutomatically(finalRoute, rationale);
     }
 
     private static RouteResult HandleHumanEscalation(
         BugClassification classification,
-        BugReport report) {
+        BugReport report,
+        string rationale) {
 
-        Logger.Info("Bug marked for human escalation.");
+        Logger.Info($"Bug marked for human escalation. Reason: {rationale}");
         Logger.Info("");
         Logger.Info("RAW BUG:");
         Logger.Info(report.RawText.Trim());
@@ -87,23 +94,24 @@ public static class RouterExecutor {
         return new RouteResult {
             Route = selectedTeam,
             RoutedBy = RouteSource.Human,
-            Reason = "Classification required human escalation.",
+            Reason = rationale,
             HumanSelectedUrgency = selectedUrgency,
             HumanMarkedFalseReport = isFalseReport
         };
     }
 
     private static RouteResult RouteAutomatically(
-        BugClassification classification) {
+        RouteEnum finalRoute,
+        string rationale) {
 
         // Convert machine label like "backend_team" into display text like
         // "Backend Team" before storing/logging the route result.
-        var route = RouteToDisplay(classification.RecommendedRoute);
+        var route = RouteToDisplay(finalRoute);
 
         return new RouteResult {
             Route = route,
             RoutedBy = RouteSource.Automatic,
-            Reason = "Classification did not require manual human routing.",
+            Reason = rationale,
             HumanSelectedUrgency = "",
             HumanMarkedFalseReport = null
         };

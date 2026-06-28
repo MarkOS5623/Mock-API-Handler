@@ -1,0 +1,1232 @@
+{
+  "schema_version": "1.0",
+  "run_metadata": {
+    "timestamp": "2026-06-28T12:48:20.1411652Z",
+    "duration_seconds": 523.0896338,
+    "log_file": "logs/run_20260628_124820.txt",
+    "json_file": "logs/run_20260628_124820.json"
+  },
+  "configuration": {
+    "model": "openai/gpt-oss-120b:free",
+    "keyword_count": 5,
+    "prompt_type": "Detailed",
+    "scenario": "All",
+    "manual_escalation_handling": false
+  },
+  "test_cases": [
+    {
+      "scenario_name": "Evidence Supports Bug",
+      "reports": [
+        {
+          "report_id": "BUG-001",
+          "reporter": "qa-user-01",
+          "status": "success",
+          "failure_reason": null,
+          "preprocessing": {
+            "clean_text_length": 369,
+            "evidence_length": 251,
+            "keywords": [
+              "checkout",
+              "browser",
+              "payment",
+              "purchase",
+              "timeout"
+            ]
+          },
+          "classification": {
+            "category": "Backend",
+            "category_vector": [
+              0.1,
+              0.75,
+              0.1,
+              0.05
+            ],
+            "urgency": "Medium",
+            "urgency_value": 0.5,
+            "missing_info": [],
+            "recommended_route": "BackendTeam",
+            "recommended_route_vector": [
+              0.05,
+              0.8,
+              0.1,
+              0.05
+            ],
+            "escalate_to_human": false,
+            "escalate_to_human_value": 0.1,
+            "verification_status": "Supported",
+            "verification_status_vector": [
+              0.85,
+              0.05,
+              0.1
+            ],
+            "false_report_risk": "Low",
+            "false_report_risk_value": 0.2,
+            "verification_reason": "Evidence shows a 504 Gateway Timeout from the checkout API and console timeout, matching the reported unresponsive checkout button, thus supporting the report."
+          },
+          "routing": {
+            "Route": "Backend Team",
+            "RoutedBy": "Automatic",
+            "Reason": "Classification did not require manual human routing.",
+            "HumanSelectedUrgency": "",
+            "HumanMarkedFalseReport": null
+          },
+          "expected": {
+            "Category": "Backend",
+            "Urgency": "Medium",
+            "RecommendedRoute": "BackendTeam",
+            "EscalateToHuman": false,
+            "VerificationStatus": "Supported",
+            "FalseReportRisk": "Low"
+          },
+          "evaluation": {
+            "confidence": {
+              "Category": 0.75,
+              "Urgency": 1,
+              "Route": 0.8,
+              "Verification": 0.85,
+              "FalseReportRisk": 0.8
+            },
+            "accuracy": {
+              "Category": true,
+              "Urgency": true,
+              "Route": true,
+              "Verification": true,
+              "FalseReportRisk": true
+            },
+            "correct_predictions": 6,
+            "total_predictions": 6,
+            "accuracy_score": 1,
+            "quality_score": 0.925
+          }
+        },
+        {
+          "report_id": "BUG-002",
+          "reporter": "qa-user-02",
+          "status": "success",
+          "failure_reason": null,
+          "preprocessing": {
+            "clean_text_length": 273,
+            "evidence_length": 246,
+            "keywords": [
+              "orders",
+              "rendering",
+              "api",
+              "area",
+              "blank"
+            ]
+          },
+          "classification": {
+            "category": "Frontend",
+            "category_vector": [
+              0.75,
+              0.15,
+              0.05,
+              0.05
+            ],
+            "urgency": "Medium",
+            "urgency_value": 0.55,
+            "missing_info": [],
+            "recommended_route": "FrontendTeam",
+            "recommended_route_vector": [
+              0.8,
+              0.1,
+              0.05,
+              0.05
+            ],
+            "escalate_to_human": false,
+            "escalate_to_human_value": 0.1,
+            "verification_status": "Supported",
+            "verification_status_vector": [
+              0.85,
+              0.05,
+              0.1
+            ],
+            "false_report_risk": "Low",
+            "false_report_risk_value": 0.1,
+            "verification_reason": "Evidence shows a React rendering exception and blank orders page while API returns data, supporting the reported frontend rendering issue."
+          },
+          "routing": {
+            "Route": "Frontend Team",
+            "RoutedBy": "Automatic",
+            "Reason": "Classification did not require manual human routing.",
+            "HumanSelectedUrgency": "",
+            "HumanMarkedFalseReport": null
+          },
+          "expected": {
+            "Category": "Frontend",
+            "Urgency": "Medium",
+            "RecommendedRoute": "FrontendTeam",
+            "EscalateToHuman": false,
+            "VerificationStatus": "Supported",
+            "FalseReportRisk": "Low"
+          },
+          "evaluation": {
+            "confidence": {
+              "Category": 0.75,
+              "Urgency": 0.95,
+              "Route": 0.8,
+              "Verification": 0.85,
+              "FalseReportRisk": 0.9
+            },
+            "accuracy": {
+              "Category": true,
+              "Urgency": true,
+              "Route": true,
+              "Verification": true,
+              "FalseReportRisk": true
+            },
+            "correct_predictions": 6,
+            "total_predictions": 6,
+            "accuracy_score": 1,
+            "quality_score": 0.9291666666666667
+          }
+        },
+        {
+          "report_id": "BUG-003",
+          "reporter": "qa-user-03",
+          "status": "success",
+          "failure_reason": null,
+          "preprocessing": {
+            "clean_text_length": 261,
+            "evidence_length": 237,
+            "keywords": [
+              "email",
+              "password",
+              "reset",
+              "provider",
+              "timeout"
+            ]
+          },
+          "classification": {
+            "category": "Backend",
+            "category_vector": [
+              0.05,
+              0.85,
+              0.05,
+              0.05
+            ],
+            "urgency": "Medium",
+            "urgency_value": 0.5,
+            "missing_info": [],
+            "recommended_route": "BackendTeam",
+            "recommended_route_vector": [
+              0,
+              0.95,
+              0,
+              0.05
+            ],
+            "escalate_to_human": false,
+            "escalate_to_human_value": 0.1,
+            "verification_status": "Supported",
+            "verification_status_vector": [
+              0.92,
+              0.04,
+              0.04
+            ],
+            "false_report_risk": "Low",
+            "false_report_risk_value": 0.1,
+            "verification_reason": "Mail service logs and backend logs show SMTP delivery failures and timeouts matching the reported missing reset emails."
+          },
+          "routing": {
+            "Route": "Backend Team",
+            "RoutedBy": "Automatic",
+            "Reason": "Classification did not require manual human routing.",
+            "HumanSelectedUrgency": "",
+            "HumanMarkedFalseReport": null
+          },
+          "expected": {
+            "Category": "Backend",
+            "Urgency": "Medium",
+            "RecommendedRoute": "BackendTeam",
+            "EscalateToHuman": false,
+            "VerificationStatus": "Supported",
+            "FalseReportRisk": "Low"
+          },
+          "evaluation": {
+            "confidence": {
+              "Category": 0.85,
+              "Urgency": 1,
+              "Route": 0.95,
+              "Verification": 0.92,
+              "FalseReportRisk": 0.9
+            },
+            "accuracy": {
+              "Category": true,
+              "Urgency": true,
+              "Route": true,
+              "Verification": true,
+              "FalseReportRisk": true
+            },
+            "correct_predictions": 6,
+            "total_predictions": 6,
+            "accuracy_score": 1,
+            "quality_score": 0.96
+          }
+        },
+        {
+          "report_id": "BUG-004",
+          "reporter": "qa-user-10",
+          "status": "success",
+          "failure_reason": null,
+          "preprocessing": {
+            "clean_text_length": 280,
+            "evidence_length": 274,
+            "keywords": [
+              "dashboard",
+              "statistics",
+              "query",
+              "when",
+              "activity"
+            ]
+          },
+          "classification": {
+            "category": "Backend",
+            "category_vector": [
+              0.05,
+              0.85,
+              0.07,
+              0.03
+            ],
+            "urgency": "Low",
+            "urgency_value": 0.2,
+            "missing_info": [],
+            "recommended_route": "BackendTeam",
+            "recommended_route_vector": [
+              0.05,
+              0.85,
+              0.07,
+              0.03
+            ],
+            "escalate_to_human": false,
+            "escalate_to_human_value": 0.1,
+            "verification_status": "Supported",
+            "verification_status_vector": [
+              0.75,
+              0.05,
+              0.2
+            ],
+            "false_report_risk": "Low",
+            "false_report_risk_value": 0.2,
+            "verification_reason": "Backend logs show deadlock errors causing 500 responses for the statistics endpoint, matching the intermittent failure described."
+          },
+          "routing": {
+            "Route": "Backend Team",
+            "RoutedBy": "Automatic",
+            "Reason": "Classification did not require manual human routing.",
+            "HumanSelectedUrgency": "",
+            "HumanMarkedFalseReport": null
+          },
+          "expected": {
+            "Category": "Backend",
+            "Urgency": "Medium",
+            "RecommendedRoute": "BackendTeam",
+            "EscalateToHuman": false,
+            "VerificationStatus": "Supported",
+            "FalseReportRisk": "Low"
+          },
+          "evaluation": {
+            "confidence": {
+              "Category": 0.85,
+              "Urgency": 0.7,
+              "Route": 0.85,
+              "Verification": 0.75,
+              "FalseReportRisk": 0.8
+            },
+            "accuracy": {
+              "Category": true,
+              "Urgency": false,
+              "Route": true,
+              "Verification": true,
+              "FalseReportRisk": true
+            },
+            "correct_predictions": 5,
+            "total_predictions": 6,
+            "accuracy_score": 0.8333333333333334,
+            "quality_score": 0.8208333333333333
+          }
+        },
+        {
+          "report_id": "BUG-005",
+          "reporter": "",
+          "status": "failed",
+          "failure_reason": {
+            "report_id": "BUG-005",
+            "stage": "classifier",
+            "category": "classification_failed",
+            "message": "Classification failed after retries.",
+            "attempts": 3
+          },
+          "preprocessing": null,
+          "classification": null,
+          "routing": null,
+          "expected": {
+            "Category": "Frontend",
+            "Urgency": "Low",
+            "RecommendedRoute": "FrontendTeam",
+            "EscalateToHuman": false,
+            "VerificationStatus": "Supported",
+            "FalseReportRisk": "Low"
+          },
+          "evaluation": null
+        }
+      ]
+    },
+    {
+      "scenario_name": "Evidence Contradicts Bug",
+      "reports": [
+        {
+          "report_id": "BUG-006",
+          "reporter": "qa-user-04",
+          "status": "success",
+          "failure_reason": null,
+          "preprocessing": {
+            "clean_text_length": 262,
+            "evidence_length": 253,
+            "keywords": [
+              "login",
+              "navigation",
+              "accessed",
+              "account",
+              "application"
+            ]
+          },
+          "classification": {
+            "category": "Frontend",
+            "category_vector": [
+              0.85,
+              0.05,
+              0.05,
+              0.05
+            ],
+            "urgency": "Low",
+            "urgency_value": 0.1,
+            "missing_info": [],
+            "recommended_route": "HumanReview",
+            "recommended_route_vector": [
+              0.05,
+              0.05,
+              0.05,
+              0.85
+            ],
+            "escalate_to_human": true,
+            "escalate_to_human_value": 0.9,
+            "verification_status": "Contradicted",
+            "verification_status_vector": [
+              0.05,
+              0.9,
+              0.05
+            ],
+            "false_report_risk": "High",
+            "false_report_risk_value": 0.85,
+            "verification_reason": "Automated UI test and logs show successful login, directly contradicting the user claim that the login button does not work."
+          },
+          "routing": {
+            "Route": "Human Review",
+            "RoutedBy": "Automatic",
+            "Reason": "Classification did not require manual human routing.",
+            "HumanSelectedUrgency": "",
+            "HumanMarkedFalseReport": null
+          },
+          "expected": {
+            "Category": "Frontend",
+            "Urgency": "High",
+            "RecommendedRoute": "HumanReview",
+            "EscalateToHuman": true,
+            "VerificationStatus": "Contradicted",
+            "FalseReportRisk": "High"
+          },
+          "evaluation": {
+            "confidence": {
+              "Category": 0.85,
+              "Urgency": 0.09999999999999998,
+              "Route": 0.85,
+              "Verification": 0.9,
+              "FalseReportRisk": 0.85
+            },
+            "accuracy": {
+              "Category": true,
+              "Urgency": false,
+              "Route": true,
+              "Verification": true,
+              "FalseReportRisk": true
+            },
+            "correct_predictions": 5,
+            "total_predictions": 6,
+            "accuracy_score": 0.8333333333333334,
+            "quality_score": 0.7875
+          }
+        },
+        {
+          "report_id": "BUG-007",
+          "reporter": "qa-user-05",
+          "status": "success",
+          "failure_reason": null,
+          "preprocessing": {
+            "clean_text_length": 242,
+            "evidence_length": 263,
+            "keywords": [
+              "search",
+              "normal",
+              "query",
+              "results",
+              "across"
+            ]
+          },
+          "classification": {
+            "category": "Backend",
+            "category_vector": [
+              0.15,
+              0.75,
+              0.05,
+              0.05
+            ],
+            "urgency": "Low",
+            "urgency_value": 0.2,
+            "missing_info": [],
+            "recommended_route": "HumanReview",
+            "recommended_route_vector": [
+              0.1,
+              0.2,
+              0.1,
+              0.6
+            ],
+            "escalate_to_human": true,
+            "escalate_to_human_value": 0.9,
+            "verification_status": "Contradicted",
+            "verification_status_vector": [
+              0.05,
+              0.9,
+              0.05
+            ],
+            "false_report_risk": "High",
+            "false_report_risk_value": 0.85,
+            "verification_reason": "Automated tests and logs show successful search responses, contradicting the claim that search returns no results."
+          },
+          "routing": {
+            "Route": "Human Review",
+            "RoutedBy": "Automatic",
+            "Reason": "Classification did not require manual human routing.",
+            "HumanSelectedUrgency": "",
+            "HumanMarkedFalseReport": null
+          },
+          "expected": {
+            "Category": "Frontend",
+            "Urgency": "Medium",
+            "RecommendedRoute": "HumanReview",
+            "EscalateToHuman": true,
+            "VerificationStatus": "Contradicted",
+            "FalseReportRisk": "High"
+          },
+          "evaluation": {
+            "confidence": {
+              "Category": 0.15,
+              "Urgency": 0.7,
+              "Route": 0.6,
+              "Verification": 0.9,
+              "FalseReportRisk": 0.85
+            },
+            "accuracy": {
+              "Category": false,
+              "Urgency": false,
+              "Route": true,
+              "Verification": true,
+              "FalseReportRisk": true
+            },
+            "correct_predictions": 4,
+            "total_predictions": 6,
+            "accuracy_score": 0.6666666666666666,
+            "quality_score": 0.6749999999999999
+          }
+        },
+        {
+          "report_id": "BUG-008",
+          "reporter": "qa-user-06",
+          "status": "success",
+          "failure_reason": null,
+          "preprocessing": {
+            "clean_text_length": 243,
+            "evidence_length": 250,
+            "keywords": [
+              "profile",
+              "save",
+              "saved",
+              "updates",
+              "api"
+            ]
+          },
+          "classification": {
+            "category": "Frontend",
+            "category_vector": [
+              0.83,
+              0.1,
+              0.04,
+              0.03
+            ],
+            "urgency": "Low",
+            "urgency_value": 0.2,
+            "missing_info": [],
+            "recommended_route": "HumanReview",
+            "recommended_route_vector": [
+              0.05,
+              0.05,
+              0.05,
+              0.85
+            ],
+            "escalate_to_human": true,
+            "escalate_to_human_value": 0.9,
+            "verification_status": "Contradicted",
+            "verification_status_vector": [
+              0.05,
+              0.9,
+              0.05
+            ],
+            "false_report_risk": "High",
+            "false_report_risk_value": 0.86,
+            "verification_reason": "Evidence (database logs, API 200, UI test) shows profile updates are saved correctly, contradicting the report that changes are lost."
+          },
+          "routing": {
+            "Route": "Human Review",
+            "RoutedBy": "Automatic",
+            "Reason": "Classification did not require manual human routing.",
+            "HumanSelectedUrgency": "",
+            "HumanMarkedFalseReport": null
+          },
+          "expected": {
+            "Category": "Frontend",
+            "Urgency": "Medium",
+            "RecommendedRoute": "HumanReview",
+            "EscalateToHuman": true,
+            "VerificationStatus": "Contradicted",
+            "FalseReportRisk": "High"
+          },
+          "evaluation": {
+            "confidence": {
+              "Category": 0.83,
+              "Urgency": 0.7,
+              "Route": 0.85,
+              "Verification": 0.9,
+              "FalseReportRisk": 0.86
+            },
+            "accuracy": {
+              "Category": true,
+              "Urgency": false,
+              "Route": true,
+              "Verification": true,
+              "FalseReportRisk": true
+            },
+            "correct_predictions": 5,
+            "total_predictions": 6,
+            "accuracy_score": 0.8333333333333334,
+            "quality_score": 0.8366666666666667
+          }
+        },
+        {
+          "report_id": "BUG-009",
+          "reporter": "qa-user-12",
+          "status": "success",
+          "failure_reason": null,
+          "preprocessing": {
+            "clean_text_length": 270,
+            "evidence_length": 269,
+            "keywords": [
+              "download",
+              "invoice",
+              "browser",
+              "pdf",
+              "access"
+            ]
+          },
+          "classification": {
+            "category": "Frontend",
+            "category_vector": [
+              0.78,
+              0.07,
+              0.08,
+              0.07
+            ],
+            "urgency": "Low",
+            "urgency_value": 0.15,
+            "missing_info": [
+              "invoice id",
+              "browser",
+              "account type"
+            ],
+            "recommended_route": "HumanReview",
+            "recommended_route_vector": [
+              0.04,
+              0.04,
+              0.04,
+              0.88
+            ],
+            "escalate_to_human": true,
+            "escalate_to_human_value": 0.88,
+            "verification_status": "Contradicted",
+            "verification_status_vector": [
+              0.03,
+              0.91,
+              0.06
+            ],
+            "false_report_risk": "High",
+            "false_report_risk_value": 0.84,
+            "verification_reason": "Evidence shows normal download activity and successful API responses, contradicting the claim that downloads fail."
+          },
+          "routing": {
+            "Route": "Human Review",
+            "RoutedBy": "Automatic",
+            "Reason": "Classification did not require manual human routing.",
+            "HumanSelectedUrgency": "",
+            "HumanMarkedFalseReport": null
+          },
+          "expected": {
+            "Category": "Infrastructure",
+            "Urgency": "Medium",
+            "RecommendedRoute": "HumanReview",
+            "EscalateToHuman": true,
+            "VerificationStatus": "Contradicted",
+            "FalseReportRisk": "High"
+          },
+          "evaluation": {
+            "confidence": {
+              "Category": 0.08,
+              "Urgency": 0.65,
+              "Route": 0.88,
+              "Verification": 0.91,
+              "FalseReportRisk": 0.84
+            },
+            "accuracy": {
+              "Category": false,
+              "Urgency": false,
+              "Route": true,
+              "Verification": true,
+              "FalseReportRisk": true
+            },
+            "correct_predictions": 4,
+            "total_predictions": 6,
+            "accuracy_score": 0.6666666666666666,
+            "quality_score": 0.6866666666666666
+          }
+        },
+        {
+          "report_id": "BUG-010",
+          "reporter": "qa-user-13",
+          "status": "success",
+          "failure_reason": null,
+          "preprocessing": {
+            "clean_text_length": 228,
+            "evidence_length": 278,
+            "keywords": [
+              "settings",
+              "browser",
+              "notification",
+              "opened",
+              "affects"
+            ]
+          },
+          "classification": {
+            "category": "Frontend",
+            "category_vector": [
+              0.68,
+              0.12,
+              0.1,
+              0.1
+            ],
+            "urgency": "Low",
+            "urgency_value": 0.22,
+            "missing_info": [],
+            "recommended_route": "HumanReview",
+            "recommended_route_vector": [
+              0.12,
+              0.1,
+              0.08,
+              0.7
+            ],
+            "escalate_to_human": true,
+            "escalate_to_human_value": 0.88,
+            "verification_status": "Contradicted",
+            "verification_status_vector": [
+              0.08,
+              0.84,
+              0.08
+            ],
+            "false_report_risk": "High",
+            "false_report_risk_value": 0.87,
+            "verification_reason": "Evidence from monitoring, automated tests, and session replay shows the settings page loads without errors, directly contradicting the report of a crash."
+          },
+          "routing": {
+            "Route": "Human Review",
+            "RoutedBy": "Automatic",
+            "Reason": "Classification did not require manual human routing.",
+            "HumanSelectedUrgency": "",
+            "HumanMarkedFalseReport": null
+          },
+          "expected": {
+            "Category": "Frontend",
+            "Urgency": "Medium",
+            "RecommendedRoute": "HumanReview",
+            "EscalateToHuman": true,
+            "VerificationStatus": "Contradicted",
+            "FalseReportRisk": "High"
+          },
+          "evaluation": {
+            "confidence": {
+              "Category": 0.68,
+              "Urgency": 0.72,
+              "Route": 0.7,
+              "Verification": 0.84,
+              "FalseReportRisk": 0.87
+            },
+            "accuracy": {
+              "Category": true,
+              "Urgency": false,
+              "Route": true,
+              "Verification": true,
+              "FalseReportRisk": true
+            },
+            "correct_predictions": 5,
+            "total_predictions": 6,
+            "accuracy_score": 0.8333333333333334,
+            "quality_score": 0.8075
+          }
+        }
+      ]
+    },
+    {
+      "scenario_name": "Evidence Mixed Or Inconclusive",
+      "reports": [
+        {
+          "report_id": "BUG-011",
+          "reporter": "qa-user-07",
+          "status": "success",
+          "failure_reason": null,
+          "preprocessing": {
+            "clean_text_length": 244,
+            "evidence_length": 252,
+            "keywords": [
+              "more",
+              "search",
+              "sometimes",
+              "spikes",
+              "appear"
+            ]
+          },
+          "classification": {
+            "category": "Backend",
+            "category_vector": [
+              0.1,
+              0.75,
+              0.1,
+              0.05
+            ],
+            "urgency": "Medium",
+            "urgency_value": 0.5,
+            "missing_info": [],
+            "recommended_route": "BackendTeam",
+            "recommended_route_vector": [
+              0,
+              0.85,
+              0.1,
+              0.05
+            ],
+            "escalate_to_human": false,
+            "escalate_to_human_value": 0.3,
+            "verification_status": "Inconclusive",
+            "verification_status_vector": [
+              0.2,
+              0.1,
+              0.7
+            ],
+            "false_report_risk": "Medium",
+            "false_report_risk_value": 0.5,
+            "verification_reason": "Evidence shows occasional timeout spikes but no consistent reproduction; evidence is mixed, leading to an inconclusive verification."
+          },
+          "routing": {
+            "Route": "Backend Team",
+            "RoutedBy": "Automatic",
+            "Reason": "Classification did not require manual human routing.",
+            "HumanSelectedUrgency": "",
+            "HumanMarkedFalseReport": null
+          },
+          "expected": {
+            "Category": "Frontend",
+            "Urgency": "Low",
+            "RecommendedRoute": "FrontendTeam",
+            "EscalateToHuman": false,
+            "VerificationStatus": "Inconclusive",
+            "FalseReportRisk": "Medium"
+          },
+          "evaluation": {
+            "confidence": {
+              "Category": 0.1,
+              "Urgency": 0.5,
+              "Route": 0,
+              "Verification": 0.7,
+              "FalseReportRisk": 1
+            },
+            "accuracy": {
+              "Category": false,
+              "Urgency": false,
+              "Route": false,
+              "Verification": true,
+              "FalseReportRisk": true
+            },
+            "correct_predictions": 3,
+            "total_predictions": 6,
+            "accuracy_score": 0.5,
+            "quality_score": 0.5
+          }
+        },
+        {
+          "report_id": "BUG-012",
+          "reporter": "qa-user-08",
+          "status": "success",
+          "failure_reason": null,
+          "preprocessing": {
+            "clean_text_length": 280,
+            "evidence_length": 245,
+            "keywords": [
+              "client",
+              "consistently",
+              "delayed",
+              "message",
+              "notification"
+            ]
+          },
+          "classification": {
+            "category": "Frontend",
+            "category_vector": [
+              0.68,
+              0.15,
+              0.1,
+              0.07
+            ],
+            "urgency": "Low",
+            "urgency_value": 0.22,
+            "missing_info": [],
+            "recommended_route": "FrontendTeam",
+            "recommended_route_vector": [
+              0.71,
+              0.12,
+              0.09,
+              0.08
+            ],
+            "escalate_to_human": false,
+            "escalate_to_human_value": 0.2,
+            "verification_status": "Inconclusive",
+            "verification_status_vector": [
+              0.18,
+              0.12,
+              0.7
+            ],
+            "false_report_risk": "Medium",
+            "false_report_risk_value": 0.72,
+            "verification_reason": "Evidence is mixed and intermittent; logs show delayed client reconnects but no consistent failure, making the report inconclusive."
+          },
+          "routing": {
+            "Route": "Frontend Team",
+            "RoutedBy": "Automatic",
+            "Reason": "Classification did not require manual human routing.",
+            "HumanSelectedUrgency": "",
+            "HumanMarkedFalseReport": null
+          },
+          "expected": {
+            "Category": "Frontend",
+            "Urgency": "Low",
+            "RecommendedRoute": "FrontendTeam",
+            "EscalateToHuman": false,
+            "VerificationStatus": "Inconclusive",
+            "FalseReportRisk": "Medium"
+          },
+          "evaluation": {
+            "confidence": {
+              "Category": 0.68,
+              "Urgency": 0.78,
+              "Route": 0.71,
+              "Verification": 0.7,
+              "FalseReportRisk": 0.78
+            },
+            "accuracy": {
+              "Category": true,
+              "Urgency": true,
+              "Route": true,
+              "Verification": true,
+              "FalseReportRisk": true
+            },
+            "correct_predictions": 6,
+            "total_predictions": 6,
+            "accuracy_score": 1,
+            "quality_score": 0.8708333333333333
+          }
+        },
+        {
+          "report_id": "BUG-013",
+          "reporter": "qa-user-09",
+          "status": "success",
+          "failure_reason": null,
+          "preprocessing": {
+            "clean_text_length": 222,
+            "evidence_length": 209,
+            "keywords": [
+              "browser",
+              "cache",
+              "data",
+              "only",
+              "session"
+            ]
+          },
+          "classification": {
+            "category": "Frontend",
+            "category_vector": [
+              0.6,
+              0.2,
+              0.1,
+              0.1
+            ],
+            "urgency": "Low",
+            "urgency_value": 0.15,
+            "missing_info": [],
+            "recommended_route": "FrontendTeam",
+            "recommended_route_vector": [
+              0.7,
+              0.1,
+              0.1,
+              0.1
+            ],
+            "escalate_to_human": false,
+            "escalate_to_human_value": 0.3,
+            "verification_status": "Inconclusive",
+            "verification_status_vector": [
+              0.2,
+              0.1,
+              0.7
+            ],
+            "false_report_risk": "Medium",
+            "false_report_risk_value": 0.5,
+            "verification_reason": "Evidence shows stale data cached in browser and clearing cache resolves it, but root cause not fully confirmed; mixed evidence leads to inconclusive verification."
+          },
+          "routing": {
+            "Route": "Frontend Team",
+            "RoutedBy": "Automatic",
+            "Reason": "Classification did not require manual human routing.",
+            "HumanSelectedUrgency": "",
+            "HumanMarkedFalseReport": null
+          },
+          "expected": {
+            "Category": "Frontend",
+            "Urgency": "Low",
+            "RecommendedRoute": "FrontendTeam",
+            "EscalateToHuman": false,
+            "VerificationStatus": "Supported",
+            "FalseReportRisk": "Low"
+          },
+          "evaluation": {
+            "confidence": {
+              "Category": 0.6,
+              "Urgency": 0.85,
+              "Route": 0.7,
+              "Verification": 0.2,
+              "FalseReportRisk": 0.5
+            },
+            "accuracy": {
+              "Category": true,
+              "Urgency": true,
+              "Route": true,
+              "Verification": false,
+              "FalseReportRisk": false
+            },
+            "correct_predictions": 4,
+            "total_predictions": 6,
+            "accuracy_score": 0.6666666666666666,
+            "quality_score": 0.6291666666666667
+          }
+        },
+        {
+          "report_id": "BUG-014",
+          "reporter": "qa-user-14",
+          "status": "success",
+          "failure_reason": null,
+          "preprocessing": {
+            "clean_text_length": 217,
+            "evidence_length": 230,
+            "keywords": [
+              "file",
+              "upload",
+              "uploads",
+              "application",
+              "availability"
+            ]
+          },
+          "classification": {
+            "category": "Infrastructure",
+            "category_vector": [
+              0.1,
+              0.1,
+              0.75,
+              0.05
+            ],
+            "urgency": "Low",
+            "urgency_value": 0.15,
+            "missing_info": [],
+            "recommended_route": "InfrastructureTeam",
+            "recommended_route_vector": [
+              0.1,
+              0.1,
+              0.75,
+              0.05
+            ],
+            "escalate_to_human": false,
+            "escalate_to_human_value": 0.3,
+            "verification_status": "Inconclusive",
+            "verification_status_vector": [
+              0.1,
+              0.1,
+              0.8
+            ],
+            "false_report_risk": "Medium",
+            "false_report_risk_value": 0.5,
+            "verification_reason": "Evidence shows occasional network packet loss but also successful uploads, making the cause unclear."
+          },
+          "routing": {
+            "Route": "Infrastructure Team",
+            "RoutedBy": "Automatic",
+            "Reason": "Classification did not require manual human routing.",
+            "HumanSelectedUrgency": "",
+            "HumanMarkedFalseReport": null
+          },
+          "expected": {
+            "Category": "Infrastructure",
+            "Urgency": "Low",
+            "RecommendedRoute": "InfrastructureTeam",
+            "EscalateToHuman": false,
+            "VerificationStatus": "Inconclusive",
+            "FalseReportRisk": "Medium"
+          },
+          "evaluation": {
+            "confidence": {
+              "Category": 0.75,
+              "Urgency": 0.85,
+              "Route": 0.75,
+              "Verification": 0.8,
+              "FalseReportRisk": 1
+            },
+            "accuracy": {
+              "Category": true,
+              "Urgency": true,
+              "Route": true,
+              "Verification": true,
+              "FalseReportRisk": true
+            },
+            "correct_predictions": 6,
+            "total_predictions": 6,
+            "accuracy_score": 1,
+            "quality_score": 0.9041666666666666
+          }
+        },
+        {
+          "report_id": "BUG-015",
+          "reporter": "qa-user-15",
+          "status": "success",
+          "failure_reason": null,
+          "preprocessing": {
+            "clean_text_length": 233,
+            "evidence_length": 238,
+            "keywords": [
+              "date",
+              "export",
+              "csv",
+              "pagination",
+              "ranges"
+            ]
+          },
+          "classification": {
+            "category": "Backend",
+            "category_vector": [
+              0.1,
+              0.75,
+              0.1,
+              0.05
+            ],
+            "urgency": "Medium",
+            "urgency_value": 0.5,
+            "missing_info": [],
+            "recommended_route": "BackendTeam",
+            "recommended_route_vector": [
+              0,
+              0.85,
+              0.1,
+              0.05
+            ],
+            "escalate_to_human": false,
+            "escalate_to_human_value": 0.2,
+            "verification_status": "Inconclusive",
+            "verification_status_vector": [
+              0.2,
+              0,
+              0.8
+            ],
+            "false_report_risk": "Medium",
+            "false_report_risk_value": 0.5,
+            "verification_reason": "Evidence is mixed: logs show successful export but a CSV with missing rows was found; the issue is intermittent and not consistently reproducible."
+          },
+          "routing": {
+            "Route": "Backend Team",
+            "RoutedBy": "Automatic",
+            "Reason": "Classification did not require manual human routing.",
+            "HumanSelectedUrgency": "",
+            "HumanMarkedFalseReport": null
+          },
+          "expected": {
+            "Category": "Backend",
+            "Urgency": "Low",
+            "RecommendedRoute": "BackendTeam",
+            "EscalateToHuman": false,
+            "VerificationStatus": "Inconclusive",
+            "FalseReportRisk": "Medium"
+          },
+          "evaluation": {
+            "confidence": {
+              "Category": 0.75,
+              "Urgency": 0.5,
+              "Route": 0.85,
+              "Verification": 0.8,
+              "FalseReportRisk": 1
+            },
+            "accuracy": {
+              "Category": true,
+              "Urgency": false,
+              "Route": true,
+              "Verification": true,
+              "FalseReportRisk": true
+            },
+            "correct_predictions": 5,
+            "total_predictions": 6,
+            "accuracy_score": 0.8333333333333334,
+            "quality_score": 0.8083333333333333
+          }
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "Model": "openai/gpt-oss-120b:free",
+    "KeywordCount": 5,
+    "PromptType": "Detailed",
+    "Scenario": "All",
+    "ManualEscalationHandling": false,
+    "CasesEvaluated": 14,
+    "AverageConfidenceScore": 0.7582142857142857,
+    "AverageAccuracyScore": 0.8333333333333334,
+    "AverageQualityScore": 0.7957738095238095,
+    "TotalCorrectPredictions": 70,
+    "TotalPredictions": 84,
+    "RunTimeSeconds": 523.0896338
+  },
+  "failures": [
+    {
+      "report_id": "BUG-005",
+      "stage": "classifier",
+      "category": "classification_failed",
+      "message": "Classification failed after retries.",
+      "attempts": 3
+    }
+  ]
+}
