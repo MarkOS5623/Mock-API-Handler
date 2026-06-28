@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BugTriageWorkflow", "BugTriageWorkflow\BugTriageWorkflow.csproj", "{E0E20CBE-C21D-4BDF-B352-DA0C8C244BAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BugTriageWorkflow.Tests", "BugTriageWorkflow.Tests\BugTriageWorkflow.Tests.csproj", "{6BC80E48-9875-4135-B617-1004383189E1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E0E20CBE-C21D-4BDF-B352-DA0C8C244BAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0E20CBE-C21D-4BDF-B352-DA0C8C244BAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0E20CBE-C21D-4BDF-B352-DA0C8C244BAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0E20CBE-C21D-4BDF-B352-DA0C8C244BAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BC80E48-9875-4135-B617-1004383189E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BC80E48-9875-4135-B617-1004383189E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BC80E48-9875-4135-B617-1004383189E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BC80E48-9875-4135-B617-1004383189E1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

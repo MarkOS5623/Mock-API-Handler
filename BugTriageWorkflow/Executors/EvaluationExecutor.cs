@@ -91,7 +91,7 @@ public static class EvaluationExecutor {
         };
     }
 
-    private static double VectorScore(int expectedIndex, List<double>? actualVector) {
+    internal static double VectorScore(int expectedIndex, List<double>? actualVector) {
         if (actualVector == null) return 0.0;
 
         if (expectedIndex < 0 || expectedIndex >= actualVector.Count) return 0.0;
@@ -99,9 +99,9 @@ public static class EvaluationExecutor {
         return Clamp(actualVector[expectedIndex]);
     }
 
-    private static double DistanceScore(double expected, double actual) { return Clamp(1.0 - Math.Abs(expected - actual)); }
+    internal static double DistanceScore(double expected, double actual) { return Clamp(1.0 - Math.Abs(expected - actual)); }
 
-    private static double UrgencyToValue(UrgencyEnum value) {
+    internal static double UrgencyToValue(UrgencyEnum value) {
         return value switch {
             UrgencyEnum.Low => 0.0,
             UrgencyEnum.Medium => 0.5,
@@ -110,7 +110,7 @@ public static class EvaluationExecutor {
         };
     }
 
-    private static double RiskToValue(FalseReportRiskEnum value) {
+    internal static double RiskToValue(FalseReportRiskEnum value) {
         return value switch {
             FalseReportRiskEnum.Low => 0.0,
             FalseReportRiskEnum.Medium => 0.5,
@@ -119,9 +119,9 @@ public static class EvaluationExecutor {
         };
     }
 
-    private static double BoolToValue(bool value) { return value ? 1.0 : 0.0;}
+    internal static double BoolToValue(bool value) { return value ? 1.0 : 0.0;}
 
-    private static int BoolScore(bool value) { return value ? 1 : 0; }
+    internal static int BoolScore(bool value) { return value ? 1 : 0; }
 
-    private static double Clamp(double value) { return Math.Max(0.0, Math.Min(1.0, value)); }
+    internal static double Clamp(double value) { return Math.Max(0.0, Math.Min(1.0, value)); }
 }
